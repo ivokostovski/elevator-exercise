@@ -149,6 +149,8 @@ I prefer using plain CSS for styling, or using Tailwind CSS with or without a Ta
 - **React Testing Library** - Component testing utilities
 - **Coverage Reports** - Built-in coverage reporting
 
+I have implemented unit tests for both functions and some of the components, to show how I would do it in a real-world project.
+
 ## Code Style
 
 ### Naming Conventions

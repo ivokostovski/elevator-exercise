@@ -19,15 +19,14 @@ const config: Config = {
 
   // Coverage patterns
   collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
+    'src/components/**/*.{ts,tsx}',
+    'src/contexts/**/*.{ts,tsx}',
+    'src/utils/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/*.stories.{ts,tsx}',
     '!src/**/index.{ts,tsx}',
-    '!src/main.tsx',
-    '!src/vite-env.d.ts',
-    '!src/App.tsx',
-    '!src/types/**/*',
-    '!src/test/**/*',
+    '!src/**/*.test.{ts,tsx}',
+    '!src/**/*.spec.{ts,tsx}',
   ],
 
   // Coverage thresholds
