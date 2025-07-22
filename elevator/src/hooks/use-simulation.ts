@@ -7,7 +7,7 @@ import {
 import { useBuilding } from '../contexts/building-context';
 import { ElevatorDirection } from '../types/elevator';
 
-const SimulationManager = () => {
+export const useSimulation = () => {
   const { state, dispatch } = useBuilding();
 
   // Handle the main simulation tick
@@ -59,8 +59,4 @@ const SimulationManager = () => {
     const initialTimer = setTimeout(generateRandomCall, initialCallTime);
     return () => clearTimeout(initialTimer);
   }, [generateRandomCall]);
-
-  return null; // This component is purely for logic, no UI
 };
-
-export default SimulationManager;

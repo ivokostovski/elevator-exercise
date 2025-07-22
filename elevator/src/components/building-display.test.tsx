@@ -10,22 +10,24 @@ jest.mock('../contexts/building-context', () => ({
 
 // Mock child components
 jest.mock('./building-display/building-grid', () => {
-  return function MockBuildingGrid({ elevators, floors, numberOfFloors }: any) {
+  return function MockBuildingGrid() {
+    const { state } = require('../contexts/building-context').useBuilding();
     return (
       <div data-testid='building-grid'>
-        <div data-testid='elevators-count'>{elevators.length}</div>
-        <div data-testid='floors-count'>{floors.length}</div>
-        <div data-testid='number-of-floors'>{numberOfFloors}</div>
+        <div data-testid='elevators-count'>{state.elevators.length}</div>
+        <div data-testid='floors-count'>{state.floors.length}</div>
+        <div data-testid='number-of-floors'>{state.numberOfFloors}</div>
       </div>
     );
   };
 });
 
 jest.mock('./building-display/floor-numbers', () => {
-  return function MockFloorNumbers({ numberOfFloors }: any) {
+  return function MockFloorNumbers() {
+    const { state } = require('../contexts/building-context').useBuilding();
     return (
       <div data-testid='floor-numbers'>
-        <div data-testid='floor-numbers-count'>{numberOfFloors}</div>
+        <div data-testid='floor-numbers-count'>{state.numberOfFloors}</div>
       </div>
     );
   };
@@ -162,12 +164,6 @@ describe('BuildingDisplay', () => {
   });
 
   describe('State integration', () => {
-    it('uses building context state', () => {
-      render(<BuildingDisplay />);
-
-      expect(mockUseBuilding).toHaveBeenCalledTimes(1);
-    });
-
     it('handles different elevator counts', () => {
       const stateWithMoreElevators = createMockState();
       stateWithMoreElevators.numberOfElevators = 4;

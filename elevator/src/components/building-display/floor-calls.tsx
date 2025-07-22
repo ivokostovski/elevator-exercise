@@ -1,30 +1,23 @@
-import type { Floor } from '../../types/elevator';
+import { useBuilding } from '@/contexts/building-context';
+import FloorCallIndicator from './floor-call-indicator';
 
-type FloorCallsProps = {
-  floors: Floor[];
-  numberOfFloors: number;
-};
+const FloorCalls = () => {
+  const {
+    state: { numberOfFloors, floors },
+  } = useBuilding();
 
-const FloorCalls = ({ floors, numberOfFloors }: FloorCallsProps) => {
   return (
     <div className='floor-calls' role='grid' aria-label='Floor call indicators'>
       {Array.from({ length: numberOfFloors }, (_, i) => {
         const floorNumber = numberOfFloors - i; // Start from top floor
         const floor = floors.find(f => f.floorNumber === floorNumber);
-        const hasAnyCall = floor?.hasUpCall || floor?.hasDownCall;
 
         return (
-          <div
+          <FloorCallIndicator
             key={floorNumber}
-            className={`floor-call-indicator ${!hasAnyCall ? 'no-calls' : ''}`}
-            role='gridcell'
-            aria-label={`Floor ${floorNumber} calls${floor?.hasUpCall ? ' - Up call active' : ''}${floor?.hasDownCall ? ' - Down call active' : ''}`}
-          >
-            <div className='call-buttons' aria-hidden='true'>
-              {floor?.hasUpCall && <span className='call-up'>↑</span>}
-              {floor?.hasDownCall && <span className='call-down'>↓</span>}
-            </div>
-          </div>
+            floorNumber={floorNumber}
+            floor={floor}
+          />
         );
       })}
     </div>

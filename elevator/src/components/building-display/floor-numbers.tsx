@@ -1,8 +1,10 @@
-type FloorNumbersProps = {
-  numberOfFloors: number;
-};
+import { useBuilding } from '@/contexts/building-context';
 
-const FloorNumbers = ({ numberOfFloors }: FloorNumbersProps) => {
+const FloorNumbers = () => {
+  const {
+    state: { numberOfFloors },
+  } = useBuilding();
+
   return (
     <div className='floor-numbers' role='grid' aria-label='Floor numbers'>
       {Array.from({ length: numberOfFloors }, (_, i) => {

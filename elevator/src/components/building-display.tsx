@@ -1,9 +1,11 @@
-import { useBuilding } from '../contexts/building-context';
+import { useBuilding } from '@/contexts/building-context';
 import BuildingGrid from './building-display/building-grid';
 import FloorNumbers from './building-display/floor-numbers';
 
 const BuildingDisplay = () => {
-  const { state } = useBuilding();
+  const {
+    state: { numberOfFloors, elevators },
+  } = useBuilding();
 
   return (
     <div
@@ -15,14 +17,10 @@ const BuildingDisplay = () => {
       <div
         className='building-container'
         role='grid'
-        aria-label={`${state.numberOfFloors}-floor building with ${state.elevators.length} elevators`}
+        aria-label={`${numberOfFloors}-floor building with ${elevators.length} elevators`}
       >
-        <FloorNumbers numberOfFloors={state.numberOfFloors} />
-        <BuildingGrid
-          elevators={state.elevators}
-          floors={state.floors}
-          numberOfFloors={state.numberOfFloors}
-        />
+        <FloorNumbers />
+        <BuildingGrid />
       </div>
     </div>
   );

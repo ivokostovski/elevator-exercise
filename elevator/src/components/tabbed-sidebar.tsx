@@ -3,15 +3,19 @@ import CallQueueOnly from './call-queue-only';
 import ElevatorDebug from './elevator-debug';
 import FloorControls from './floor-controls';
 
-type TabType = 'controls' | 'status' | 'queue';
+enum TabType {
+  Controls = 'controls',
+  Status = 'status',
+  Queue = 'queue',
+}
 
 const TabbedSidebar = () => {
-  const [activeTab, setActiveTab] = useState<TabType>('controls');
+  const [activeTab, setActiveTab] = useState<TabType>(TabType.Controls);
 
   const tabs = [
-    { id: 'controls' as TabType, label: 'Manual Controls', icon: '🎛️' },
-    { id: 'status' as TabType, label: 'Elevator Status', icon: '🏢' },
-    { id: 'queue' as TabType, label: 'Call Queue', icon: '📞' },
+    { id: TabType.Controls, label: 'Manual Controls', icon: '🎛️' },
+    { id: TabType.Status, label: 'Elevator Status', icon: '🏢' },
+    { id: TabType.Queue, label: 'Call Queue', icon: '📞' },
   ];
 
   return (
@@ -44,7 +48,7 @@ const TabbedSidebar = () => {
       </div>
 
       <div className='tab-content'>
-        {activeTab === 'controls' && (
+        {activeTab === TabType.Controls && (
           <div
             role='tabpanel'
             id='tabpanel-controls'
@@ -53,7 +57,7 @@ const TabbedSidebar = () => {
             <FloorControls />
           </div>
         )}
-        {activeTab === 'status' && (
+        {activeTab === TabType.Status && (
           <div
             role='tabpanel'
             id='tabpanel-status'
@@ -62,7 +66,7 @@ const TabbedSidebar = () => {
             <ElevatorDebug />
           </div>
         )}
-        {activeTab === 'queue' && (
+        {activeTab === TabType.Queue && (
           <div role='tabpanel' id='tabpanel-queue' aria-labelledby='tab-queue'>
             <CallQueueOnly />
           </div>

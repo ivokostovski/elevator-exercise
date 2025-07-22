@@ -1,12 +1,16 @@
+import { useBuilding } from '@/contexts/building-context';
 import type { Elevator } from '../../types/elevator';
 import ElevatorIndicator from './elevator-indicator';
 
 type ElevatorShaftProps = {
   elevator: Elevator;
-  numberOfFloors: number;
 };
 
-const ElevatorShaft = ({ elevator, numberOfFloors }: ElevatorShaftProps) => {
+const ElevatorShaft = ({ elevator }: ElevatorShaftProps) => {
+  const {
+    state: { numberOfFloors },
+  } = useBuilding();
+
   return (
     <div
       className='elevator-shaft'

@@ -1,5 +1,5 @@
 import { useBuilding } from '../contexts/building-context';
-import type { ElevatorCall } from '../types/elevator';
+import CallQueueItem from './call-queue-item';
 
 const CallQueueOnly = () => {
   const { state } = useBuilding();
@@ -17,38 +17,9 @@ const CallQueueOnly = () => {
             <p>No pending calls</p>
           </div>
         ) : (
-          state.elevatorCallQueue.map((call: ElevatorCall, index: number) => {
-            const timeInQueue = Math.floor(
-              (Date.now() - call.timestamp) / 1000
-            );
-            return (
-              <div key={index} className='queue-item' role='listitem'>
-                <div className='call-info'>
-                  <span
-                    className='call-floor'
-                    aria-label={`Call from floor ${call.floorNumber}`}
-                  >
-                    Floor {call.floorNumber}
-                  </span>
-                  <span
-                    className={`call-direction ${call.direction.toLowerCase()}`}
-                    aria-label={`${call.direction} direction call`}
-                  >
-                    <span aria-hidden='true'>
-                      {call.direction === 'Up' ? '↑' : '↓'}
-                    </span>{' '}
-                    {call.direction}
-                  </span>
-                </div>
-                <div
-                  className='queue-time'
-                  aria-label={`Call has been in queue for ${timeInQueue} seconds`}
-                >
-                  In queue: {timeInQueue}s
-                </div>
-              </div>
-            );
-          })
+          state.elevatorCallQueue.map(call => (
+            <CallQueueItem key={call.timestamp} call={call} />
+          ))
         )}
       </div>
     </div>

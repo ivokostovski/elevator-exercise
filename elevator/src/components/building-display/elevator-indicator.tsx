@@ -1,6 +1,18 @@
 import type { Elevator } from '../../types/elevator';
 import { getElevatorColor } from '../../utils/elevator-color-utils';
 
+const generateElevatorAriaLabel = (elevator: Elevator): string => {
+  const baseLabel = `Elevator ${elevator.id} - ${elevator.statusMessage}`;
+
+  if (elevator.passengers.length > 0) {
+    const passengerText =
+      elevator.passengers.length === 1 ? 'passenger' : 'passengers';
+    return `${baseLabel} with ${elevator.passengers.length} ${passengerText}`;
+  }
+
+  return baseLabel;
+};
+
 type ElevatorIndicatorProps = {
   elevator: Elevator;
 };
@@ -12,7 +24,7 @@ const ElevatorIndicator = ({ elevator }: ElevatorIndicatorProps) => {
       style={{ backgroundColor: getElevatorColor(elevator) }}
       role='status'
       id={`elevator-${elevator.id}-status`}
-      aria-label={`Elevator ${elevator.id} - ${elevator.statusMessage}${elevator.passengers.length > 0 ? ` with ${elevator.passengers.length} passenger${elevator.passengers.length !== 1 ? 's' : ''}` : ''}`}
+      aria-label={generateElevatorAriaLabel(elevator)}
     >
       <div className='elevator-id' aria-hidden='true'>
         {elevator.id}

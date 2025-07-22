@@ -77,6 +77,7 @@ src/
 │   └── ...                 # Other UI components
 ├── constants/          # Application constants and default values
 ├── contexts/           # React Context providers
+├── hooks/              # Custom hooks
 ├── styles/             # Global styles and CSS variables
 ├── types/              # TypeScript type definitions
 └── utils/              # Utility functions and helpers

@@ -1,35 +1,23 @@
-import type { Elevator, Floor } from '../../types/elevator';
+import { useBuilding } from '@/contexts/building-context';
 import ElevatorShaft from './elevator-shaft';
 import FloorCalls from './floor-calls';
 
-type BuildingGridProps = {
-  elevators: Elevator[];
-  floors: Floor[];
-  numberOfFloors: number;
-};
+const BuildingGrid = () => {
+  const {
+    state: { elevators },
+  } = useBuilding();
 
-const BuildingGrid = ({
-  elevators,
-  floors,
-  numberOfFloors,
-}: BuildingGridProps) => {
   return (
     <div
       className='building-grid'
       role='grid'
       aria-label='Building grid layout'
     >
-      {/* Elevator shafts */}
       {elevators.map(elevator => (
-        <ElevatorShaft
-          key={elevator.id}
-          elevator={elevator}
-          numberOfFloors={numberOfFloors}
-        />
+        <ElevatorShaft key={elevator.id} elevator={elevator} />
       ))}
 
-      {/* Floor call indicators on the right */}
-      <FloorCalls floors={floors} numberOfFloors={numberOfFloors} />
+      <FloorCalls />
     </div>
   );
 };
